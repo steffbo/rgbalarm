@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: es.woofl
+---
+testFramework: spock
+sourceLanguage: groovy
