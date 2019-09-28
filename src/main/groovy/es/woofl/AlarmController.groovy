@@ -1,6 +1,7 @@
 package es.woofl
 
-import es.woofl.domain.Sequence
+import es.woofl.domain.Color
+import es.woofl.domain.State
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
@@ -17,11 +18,8 @@ class AlarmController {
     @Get("/")
     @Produces(MediaType.APPLICATION_JSON)
     String index() {
-        Sequence sequence = sequenceService.findByName("wakeup")
-        if (sequence) {
-            sequenceService.run(sequence)
-            return HttpResponse.ok()
-        }
-        HttpResponse.notFound()
+        sequenceService.sendState(new State(color: Color.RED))
+        sequenceService.sendState(State.off)
+        return HttpResponse.ok()
     }
 }
