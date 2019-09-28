@@ -1,6 +1,7 @@
 package es.woofl
 
 import es.woofl.domain.Sequence
+import es.woofl.domain.State
 import io.micronaut.scheduling.annotation.Scheduled
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -22,7 +23,13 @@ class WakeUpJob {
         sequenceService.run(sq)
     }
 
-    @Scheduled(cron = "0 * * ? * *")
+    @Scheduled(cron = "0 0 8 ? * SUN")
+    void wakeUpOff() {
+        LOG.info("wakeUp off");
+        sequenceService.sendState(State.off)
+    }
+
+//    @Scheduled(cron = "0 * * ? * *")
     void disco() {
         LOG.info("*** DISCO ***");
         Sequence sq = sequenceService.findByName("disco")
