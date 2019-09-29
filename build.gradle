@@ -62,7 +62,7 @@ remotes {
     webServer {
         host = '192.168.1.190'
         user = 'pi'
-        identity = file('key.ppk')
+        password = System.getenv('REMOTE_PW')
     }
 }
 
@@ -70,9 +70,12 @@ task deploy(dependsOn: assemble) {
     doLast {
         ssh.run {
             session(remotes.webServer) {
-                put from: '/build/libs/rgbalarm-0.1-all.jar', into: '/tmp'
-                execute 'sudo mv /tmp/rgbalarm-0.1-all.jar /opt/rgbalarm/'
-                execute 'sudo java -jar /opt/rgbalarm/rgbalarm-0.1-all.jar 2>&1 >> /dev/null &'
+                // upload file
+                put from: 'build\\libs\\rgbalarm-0.1-all.jar', into: '/tmp'
+                // move file
+                execute 'sudo mv /tmp/rgbalarm-0.1-all.jar /opt/rgbalarm/rgbalarm.jar'
+                // restart
+                execute 'sudo sh /home/pi/run-rgbalarm.sh restart'
             }
         }
     }
