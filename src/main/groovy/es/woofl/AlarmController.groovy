@@ -18,7 +18,7 @@ class AlarmController {
     @Get("/")
     @Produces(MediaType.APPLICATION_JSON)
     String index() {
-        sequenceService.sendState(new State(color: Color.RED))
+        sequenceService.sendState(new State(color: Color.GREEN))
         sequenceService.sendState(State.off)
         return HttpResponse.ok()
     }

@@ -11,19 +11,19 @@ import javax.inject.Singleton
 
 @Singleton
 class WakeUpJob {
-    private static final Logger LOG = LoggerFactory.getLogger(WakeUpJob.class);
-
     @Inject
     SequenceService sequenceService
 
-    @Scheduled(cron = "0 0 8 ? * SUN")
+    private static final Logger LOG = LoggerFactory.getLogger(WakeUpJob.class);
+
+    @Scheduled(cron = "0 40 6 ? * MON")
     void wakeUp() {
         LOG.info("wake up at SUN");
         Sequence sq = sequenceService.findByName("wakeup")
         sequenceService.run(sq)
     }
 
-    @Scheduled(cron = "0 0 8 ? * SUN")
+    @Scheduled(cron = "0 15 7 ? * MON")
     void wakeUpOff() {
         LOG.info("wakeUp off");
         sequenceService.sendState(State.off)

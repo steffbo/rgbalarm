@@ -12,10 +12,10 @@ import javax.inject.Singleton
 
 @Singleton
 class SequenceService {
-    private static final Logger log = LoggerFactory.getLogger(SequenceService.class)
-
     @Inject
     StateSender stateSender
+
+    private static final Logger log = LoggerFactory.getLogger(SequenceService.class)
 
     List<Sequence> sequences = []
 

@@ -14,7 +14,8 @@ import javax.inject.Singleton
 @Singleton
 class StateSender implements Runnable {
     @Client("http://192.168.1.243/api/v1/state")
-    @Inject RxHttpClient httpClient
+    @Inject
+    RxHttpClient httpClient
 
     State state
 
